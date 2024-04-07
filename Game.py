@@ -51,6 +51,26 @@ class GameLogic:
                         neighbours.append(neighbour_button)
 
         return neighbours
+    def checking_the_loss(self,grid_layout):
+        rows, cols = grid_layout.rowCount(), grid_layout.columnCount()
+
+        for i in range (grid_layout.rowCount()):
+            for j in range(grid_layout.columnCount()):
+                current_button = grid_layout.itemAtPosition(i, j).widget()
+                for dr in [-1, 0, 1]:
+                    for dc in [-1, 0, 1]:
+                        new_row, new_col = i + dr, j + dc
+                        if (0 <= new_row < rows and 0 <= new_col < cols and
+                                (dr, dc) != (0, 0) and
+                                (dr == 0 or dc == 0)):
+                            neighbour_button = grid_layout.itemAtPosition(new_row, new_col).widget()
+                            if neighbour_button.text() == current_button.text() or neighbour_button.text() == "":
+                                return True
+
+
+
+
+
 
     def has_path_between_buttons(self, button1, button2, grid_layout, selected_buttons):
         if button1 == button2:
